@@ -1,0 +1,15 @@
+Failure_ — 06:00
+{
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "destination": "main.py"
+    }
+  ]
+}
