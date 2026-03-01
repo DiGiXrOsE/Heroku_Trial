@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 import xgboost as xgb
 import pandas as pd
 import datetime
@@ -6,9 +7,11 @@ import requests
 
 app = Flask(__name__)
 
-# --- 1. LOAD THE MODEL ---
-loaded_model = xgb.XGBRegressor()
-loaded_model.load_model("production_global_drought_model.json")
+# Build the absolute path to the model file
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(_file_)))
+model_path = os.path.join(base_dir, "production_global_drought_model.json")
+
+# Load the model
 
 # --- 2. NASA API LOGIC FROM YOUR NOTEBOOK ---
 def fetch_live_weather(lat, lon):
@@ -64,4 +67,5 @@ def predict():
     return output
 
 if __name__ == '__main__':
+
     app.run(debug=True)
